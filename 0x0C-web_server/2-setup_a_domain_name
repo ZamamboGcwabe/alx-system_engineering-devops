@@ -2,3 +2,12 @@
 # Setting up a domain name
 
 imvuselelo.tech
+
+{
+   "domainName": "imvuselelo.tech",
+   "parseCode": 8,
+   "audit": {
+      "createdDate": "2024-05-15 16:41:30 UTC",
+      "updatedDate": "2024-05-15 16:41:30 UTC"
+   },
+   "registrarName": "Dotserve Inc",
