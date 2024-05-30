@@ -8,7 +8,14 @@ apt-get -y install haproxy
 # edit config file
 server_config=\
 "
-
+frontend  imvuselelo-tech-frontend
+        bind *:80
+        mode http
+        default_backend imvuselelo-tech-backend
+backend imvuselelo-tech-backend
+        balance roundrobin
+        server 248075--web-01 18.235.255.27:80 check
+        server 248075--web-02 52.91.133.214:80 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
