@@ -1,26 +1,16 @@
 #!/usr/bin/env bash
-# Configure your Nginx server so that /redirect_me is redirecting to another page
+#  A Script that configures a new Ubuntu machine to Perform a 301-redirection
 
-if ! dpkg -l | grep -q nginx; then
-    sudo apt-get update
-    sudo apt-get install -y nginx
-fi
+# Upadating Packages before Installations
+sudo apt-get update
+sudo apt-get install -y nginx
 
-sudo tee /etc/nginx/sites-available/redirect_me <<EOF
-server {
-    listen 80;
-    listen [::]:80;
-    server_name _;
-    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-}
-EOF
+# Creating an index.html page
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-sudo ln -sf /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
+# Performing a 301 Redirection
+str_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/ZamamboGcwabe permanent;"
+sudo sed -i "s/server_name _;/$str_for_replacement/" /etc/nginx/sites-enabled/default
 
-sudo nginx -t
-
+# Restarting Nginx service
 sudo service nginx restart
-
-rm /etc/nginx/sites-available/redirect_me
-
-echo "Redirection configured successfully."
